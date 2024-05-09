@@ -2,7 +2,7 @@
 <html
         class="light"
         lang="en"
-        th:fragment="parent(content,title)"
+        th:fragment="parent(content,title,script)"
         xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
@@ -15,7 +15,7 @@
     <link rel="icon" type="image/x-icon" href="../images/s.png">
     <title th:replace="${title}">Base Page</title>
 </head>
-<body class="dark:bg-gray-800 dark:text-white">
+<body class="dark:bg-gray-800 bg-gray-100 dark:text-white">
     <!--  Header  -->
     <div class="p-4">
         <section data-th-replace="navbar"></section>
