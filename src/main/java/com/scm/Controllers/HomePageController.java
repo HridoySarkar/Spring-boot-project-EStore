@@ -3,15 +3,19 @@ package com.scm.Controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.scm.Helper.Message;
+import com.scm.Helper.MessageType;
 import com.scm.entities.User;
 import com.scm.forms.UserForm;
 import com.scm.services.UserService;
 
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 
 @Controller
 public class HomePageController {
@@ -76,13 +80,16 @@ public class HomePageController {
 
     // signup
     @RequestMapping(value = "/do-register", method = RequestMethod.POST)
-    public String processRegister(@ModelAttribute UserForm userForm,HttpSession session) {
+    public String processRegister(@Valid @ModelAttribute UserForm userForm,BindingResult rBindingResult, HttpSession session) {
 
        System.out.println("Process working");
         // fetch data from form
         System.out.println(userForm);
 
         // validation
+        if(rBindingResult.hasErrors()){
+            return "signup";
+        }
 
         // save to database
 
@@ -100,7 +107,9 @@ public class HomePageController {
 
         System.out.println("savedUser");
         // show message
-        session.setAttribute("signUpMessageBox","Register Successful");
+
+        Message message = Message.builder().content("Registration Successful").type(MessageType.green).build();
+        session.setAttribute("signUpMessageBox", message);
 
         // redirect
 
