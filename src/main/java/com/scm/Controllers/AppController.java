@@ -4,10 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import com.scm.Helper.Message;
 import com.scm.Helper.MessageType;
@@ -19,7 +16,7 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 @Controller
-public class HomePageController {
+public class AppController {
 
     @Autowired
     private UserService userService;
@@ -64,10 +61,8 @@ public class HomePageController {
     }
 
     // login
-    @RequestMapping("/login")
-    public String login(Model model) {
-        model.addAttribute("isLogin", false);
-        System.out.println("About working");
+    @GetMapping("/login")
+    public String login() {
         return "login";
     }
 
